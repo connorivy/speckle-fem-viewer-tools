@@ -1,9 +1,9 @@
 {
-  "name": "webpack-boilerplate",
-  "version": "3.0.1",
-  "description": "Sensible webpack 5 boilerplate using Babel and PostCSS.",
+  "name": "speckle-plugin",
+  "version": "0.0.1",
+  "description": "Demo plugin for Speckle platform",
   "main": "index.js",
-  "author": "Tania Rascia",
+  "author": "Connor Ivy",
   "license": "MIT",
   "scripts": {
     "start": "cross-env NODE_ENV=development webpack serve --config config/webpack.dev.js",
@@ -12,9 +12,8 @@
     "prettify": "prettier --write 'src/**/*.js'"
   },
   "keywords": [
-    "webpack",
-    "webpack 5",
-    "webpack boilerplate"
+    "speckle",
+    "speckle-plugin"
   ],
   "devDependencies": {
     "@babel/core": "^7.15.8",
@@ -32,10 +31,10 @@
     "eslint-plugin-prettier": "^4.0.0",
     "html-webpack-plugin": "^5.3.2",
     "mini-css-extract-plugin": "^2.4.2",
-    "sass": "^1.43.5",
     "postcss-loader": "^6.2.0",
     "postcss-preset-env": "^6.7.0",
     "prettier": "^2.4.1",
+    "sass": "^1.43.5",
     "sass-loader": "^12.2.0",
     "style-loader": "^3.3.0",
     "webpack": "^5.58.2",
@@ -45,6 +44,10 @@
   },
   "repository": {
     "type": "git",
-    "url": "git@github.com:taniarascia/webpack-boilerplate"
+    "url": "git@github.com:connorivy/speckle-plugin.git"
+  },
+  "dependencies": {
+    "rainbowvis.js": "^1.0.1",
+    "three": "^0.140.0"
   }
 }

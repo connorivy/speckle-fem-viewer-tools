@@ -1,26 +1,44 @@
-// Test import of a JavaScript module
-import { example } from '@/js/example'
+import { GUI } from 'three/examples/jsm/libs/lil-gui.module.min.js';
+import FilteringManager from './js/overrideFilteringManager';
 
-// Test import of an asset
-import webpackLogo from '@/images/webpack-logo.svg'
 
-// Test import of styles
-import '@/styles/index.scss'
+export function pluginMain(v, store) {
+  initGui(v)
+  v.sceneManager.sceneObjects.filteringManager = new FilteringManager(v)
+}
 
-// Appending to the DOM
-const logo = document.createElement('img')
-logo.src = webpackLogo
 
-const heading = document.createElement('h1')
-heading.textContent = example()
+function initGui(v) {
+  v.gui = new GUI();
 
-// Test a background image url in CSS
-const imageBackground = document.createElement('div')
-imageBackground.classList.add('image')
+  const param = {
+    // 'fixed nodes': true,
+    // 'wind direction': 1,
+    'wireframe' : true,
+    'color by' : null,
+    'direction' : 1,
+    'deform' : 0,
+  };
 
-// Test a public folder asset
-const imagePublic = document.createElement('img')
-imagePublic.src = '/assets/example.png'
+  v.gui.add( param, 'wireframe' ).onChange( function ( val ) {
+    console.log('wireframe')
+    v.applyFilter({filterBy: {'speckle_type': 'SpeckMesh'}, wireframe: val })
+    v.applyFilter(null)
+  } );
 
-const app = document.querySelector('#root')
-app.append(logo, heading, imageBackground, imagePublic)
+  v.gui.add( param, 'color by', { 'none': null, 'applied loads': 'applied_loads', 'displacement': 'displacements', 'reactions': 'reactions' } ).onChange( function ( val ) {
+    console.log(this)
+    v.applyFilter({filterBy: {'speckle_type': 'SpeckMesh'}, colorBy: {property: val, direction: this.object['direction'], type: 'FEM'} })
+    v.applyFilter(null)
+  } );
+
+  v.gui.add( param, 'direction', { 'Magnitude': 2, 'X': 0, 'Y': 1 } ).onChange( function ( val ) {
+    v.applyFilter({filterBy: {'speckle_type': 'SpeckMesh'}, colorBy: {property: this.object['color by'], direction: val, type: 'FEM'} })
+    v.applyFilter(null)
+  } );
+
+  v.gui.add( param, 'deform', 0, 5000 ).onChange( function ( val ) {
+    if (!val) v.applyFilter(null)
+    else v.applyFilter({filterBy: {'speckle_type': 'SpeckMesh'}, showDeformed: val, ghostOthers: true })
+  } );
+}
