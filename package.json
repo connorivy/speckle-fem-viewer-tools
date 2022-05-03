@@ -1,5 +1,5 @@
 {
-  "name": "speckle-plugin",
+  "name": "speckle-fem-viewer-tools",
   "version": "0.0.1",
   "description": "Demo plugin for Speckle platform",
   "main": "index.js",
@@ -44,7 +44,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git@github.com:connorivy/speckle-plugin.git"
+    "url": "git@github.com:connorivy/speckle-fem-viewer-tools.git"
   },
   "dependencies": {
     "rainbowvis.js": "^1.0.1",
